@@ -20,7 +20,11 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-const AuthPage: React.FC = () => {
+interface AuthPageProps {
+  onLogin: (userId: string) => void;
+}
+
+const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
@@ -32,6 +36,9 @@ const AuthPage: React.FC = () => {
     if (isLogin) {
       // Handle Login
       const { data } = await login({ variables: { email: formData.email, password: formData.password } });
+      if (data) {
+        onLogin(data.logIn.userId);
+      }
       console.log("Logged in:", data);
     } else {
       // Handle Signup

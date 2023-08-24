@@ -37,10 +37,10 @@ const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
     variables: { userId }
   });
   
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION);
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  
-  const [deleteTransaction] = useMutation(DELETE_TRANSACTION);
 
   const handleDelete = async (transactionId: string) => {
     await deleteTransaction({ variables: { id: transactionId } });
