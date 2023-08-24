@@ -112,7 +112,7 @@ const resolvers = {
                 throw new Error('Transaction not found');
             }
 
-            await transaction.remove();
+            await transaction.deleteOne();
             return id;
         }
     }

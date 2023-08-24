@@ -36,17 +36,32 @@ const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
     variables: { userId }
   });
+
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION, {
+    update(cache, { data: { deleteTransaction } }) {
+      const existingTransactions: any = cache.readQuery({
+        query: GET_TRANSACTIONS,
+        variables: { userId }
+      });
   
-  const [deleteTransaction] = useMutation(DELETE_TRANSACTION);
+      const newTransactions = existingTransactions.transactions.filter(
+        (transaction: Transaction) => transaction.id !== deleteTransaction
+      );
   
+      cache.writeQuery({
+        query: GET_TRANSACTIONS,
+        variables: { userId },
+        data: { transactions: newTransactions }
+      });
+    }
+  });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
+  
   const handleDelete = async (transactionId: string) => {
     await deleteTransaction({ variables: { id: transactionId } });
-    // Refresh transactions list after deleting
-    window.location.reload();
-  };
+  };  
 
   return (
     <div>
