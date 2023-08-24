@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import AuthPage from './components/AuthPage';
-import Dashboard from './components/Dashboard';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,11 +15,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <Routes>
-        <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <AuthPage onLogin={handleLogin} />} />
-        <Route path="/dashboard" element={isLoggedIn ? <Dashboard userId={userId!} /> : <Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
+        <AppRoutes isLoggedIn={isLoggedIn} userId={userId} handleLogin={handleLogin} />
       </div>
     </Router>
   );
