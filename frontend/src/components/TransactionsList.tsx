@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 const GET_TRANSACTIONS = gql`
@@ -11,6 +11,12 @@ const GET_TRANSACTIONS = gql`
       date
       type
     }
+  }
+`;
+
+const DELETE_TRANSACTION = gql`
+  mutation DeleteTransaction($id: ID!) {
+    deleteTransaction(id: $id)
   }
 `;
 
@@ -30,9 +36,17 @@ const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
     variables: { userId }
   });
-
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+  
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION);
+
+  const handleDelete = async (transactionId: string) => {
+    await deleteTransaction({ variables: { id: transactionId } });
+    // Refresh transactions list after deleting
+    window.location.reload();
+  };
 
   return (
     <div>
@@ -41,6 +55,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
         {data.transactions.map((transaction: Transaction) => (
           <li key={transaction.id}>
             {transaction.description} - ${transaction.amount} - {transaction.type}
+            <button onClick={() => handleDelete(transaction.id)}>Delete</button>
           </li>
         ))}
       </ul>
