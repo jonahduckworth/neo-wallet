@@ -3,29 +3,65 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 const ADD_TRANSACTION = gql`
-  mutation AddTransaction($userId: ID!, $description: String!, $amount: Float!, $type: String!) {
-    createTransaction(userId: $userId, description: $description, amount: $amount, type: $type) {
+  mutation AddTransaction($description: String!, $amount: Float!, $date: String!, $type: String!, $userId: ID!) {
+    addTransaction(description: $description, amount: $amount, date: $date, type: $type, userId: $userId) {
       id
+      description
+      amount
+      date
+      type
+    }
+  }
+`;
+
+const GET_TRANSACTIONS = gql`
+  query GetTransactions($userId: ID!) {
+    transactions(userId: $userId) {
+      id
+      description
+      amount
+      date
+      type
     }
   }
 `;
 
 interface AddTransactionProps {
   userId: string;
-  onAdded: () => void;
 }
 
-const AddTransaction: React.FC<AddTransactionProps> = ({ userId, onAdded }) => {
+const AddTransaction: React.FC<AddTransactionProps> = ({ userId }) => {
   const [formData, setFormData] = useState({ description: '', amount: '', type: 'expense' });
-  const [addTransaction] = useMutation(ADD_TRANSACTION);
+  const [addTransaction] = useMutation(ADD_TRANSACTION, {
+    update(cache, { data: { addTransaction } }) {
+      const existingTransactions: any = cache.readQuery({
+        query: GET_TRANSACTIONS,
+        variables: { userId }
+      });
+  
+      cache.writeQuery({
+        query: GET_TRANSACTIONS,
+        variables: { userId },
+        data: {
+          transactions: [...existingTransactions.transactions, addTransaction]
+        }
+      });
+    },
+    onError(err) {
+      console.error("Error while adding transaction:", err);
+    }
+});  
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const date = new Date();
+
     const { data } = await addTransaction({ 
-      variables: { ...formData, userId, amount: parseFloat(formData.amount) } 
+      variables: { ...formData, userId, amount: parseFloat(formData.amount), date: date.toISOString() } 
     });
+
     if (data) {
-      onAdded();
       setFormData({ description: '', amount: '', type: 'expense' });
     }
   };

@@ -11,11 +11,6 @@ const typeDefs = gql`
     transactions(userId: ID!): [Transaction]
   }
 
-  type Mutation {
-    signUp(username: String!, email: String!, password: String!): AuthData!
-    logIn(email: String!, password: String!): AuthData!
-  }
-
   type AuthData {
     userId: ID!
     token: String!
@@ -30,7 +25,9 @@ const typeDefs = gql`
 }
 
 type Mutation {
-    createTransaction(userId: ID!, description: String!, amount: Float!, type: String!): Transaction
+    signUp(username: String!, email: String!, password: String!): AuthData!
+    logIn(email: String!, password: String!): AuthData!
+    addTransaction(userId: ID!, description: String!, amount: Float!, type: String!, date: String!): Transaction
     updateTransaction(id: ID!, description: String, amount: Float, type: String): Transaction
     deleteTransaction(id: ID!): ID
 }
@@ -80,17 +77,18 @@ const resolvers = {
 
             return { userId: user.id, token };
         },
-        createTransaction: async (_, { userId, description, amount, type }) => {
+        addTransaction: async (_, { userId, description, amount, type, date }) => {
             const transaction = new Transaction({
                 userId,
                 description,
                 amount,
-                type
+                type,
+                date,
             });
-
+        
             await transaction.save();
             return transaction;
-        },
+        },        
 
         updateTransaction: async (_, { id, description, amount, type }) => {
             const transaction = await Transaction.findById(id);
