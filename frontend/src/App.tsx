@@ -9,7 +9,6 @@ function App() {
   const [userId, setUserId] = useState<string | null>(null);
 
   const handleLogin = (id: string) => {
-    console.log("Logged in as:", id);
     setIsLoggedIn(true);
     setUserId(id);
     localStorage.setItem('isLoggedIn', 'true');
