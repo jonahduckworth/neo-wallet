@@ -5,6 +5,8 @@ import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
 import { AuthPageProps } from '../Types';
 
+import { Button, Container, Typography, Box } from '@mui/material';
+
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -12,7 +14,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [signup] = useMutation(SIGNUP_MUTATION);
   const [login] = useMutation(LOGIN_MUTATION);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -46,13 +48,19 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
-      {isLogin ? <LoginForm {...propsForLoginForm} /> : <SignUpForm {...propsForSignUpForm} />}
-      <button onClick={() => setIsLogin(!isLogin)}>
-        Switch to {isLogin ? 'Sign Up' : 'Login'}
-      </button>
-    </div>
+    <Container maxWidth="sm">
+      <Box my={4}>
+        <Typography variant="h4" align="center" gutterBottom>
+          {isLogin ? 'Login' : 'Sign Up'}
+        </Typography>
+        {isLogin ? <LoginForm {...propsForLoginForm} /> : <SignUpForm {...propsForSignUpForm} />}
+        <Box mt={2}>
+          <Button fullWidth variant="outlined" onClick={() => setIsLogin(!isLogin)}>
+            Switch to {isLogin ? 'Sign Up' : 'Login'}
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

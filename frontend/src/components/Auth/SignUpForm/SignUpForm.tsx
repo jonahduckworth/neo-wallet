@@ -1,37 +1,47 @@
 import React from 'react';
 import { SignUpFormProps } from '../Types';
 
+import { Button, TextField, Box } from '@mui/material';
+
 const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubmit }) => {
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <label>Username: </label>
-        <input 
-          type="text" 
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Username"
+          variant="outlined"
+          type="text"
           name="username"
-          value={formData.username} 
-          onChange={onInputChange} 
+          value={formData.username}
+          onChange={onInputChange}
         />
-    </div>  
-      <div>
-        <label>Email: </label>
-        <input 
-          type="email" 
+      </Box>
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Email"
+          variant="outlined"
+          type="email"
           name="email"
-          value={formData.email} 
-          onChange={onInputChange} 
+          value={formData.email}
+          onChange={onInputChange}
         />
-      </div>
-      <div>
-        <label>Password: </label>
-          <input 
-            type="password" 
-            name="password"
-            value={formData.password} 
-            onChange={onInputChange} 
-          />
-        </div>
-        <button type="submit">Sign Up</button>
+      </Box>
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Password"
+          variant="outlined"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={onInputChange}
+        />
+      </Box>
+      <Button fullWidth variant="contained" color="primary" type="submit">
+        Sign Up
+      </Button>
     </form>
   );
 }
