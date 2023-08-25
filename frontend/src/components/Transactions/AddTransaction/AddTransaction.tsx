@@ -24,15 +24,16 @@ const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
     onError(err) {
       console.error("Error while adding transaction:", err);
     }
-});  
+  });  
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const date = new Date();
+    const amountValue = formData.amount ? parseFloat(formData.amount) : 0;
 
     const { data } = await addTransaction({ 
-      variables: { ...formData, userId, amount: parseFloat(formData.amount), date: date.toISOString() } 
+      variables: { ...formData, userId, amount: amountValue, date: date.toISOString() } 
     });
 
     if (data) {

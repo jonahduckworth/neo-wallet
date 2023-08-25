@@ -5,8 +5,9 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ formData, onSubmit, o
   return (
     <form onSubmit={onSubmit}>
       <div>
-        <label>Description: </label>
+        <label htmlFor="description">Description: </label>
         <input 
+          id="description"
           type="text" 
           value={formData.description} 
           onChange={onInputChange} 
@@ -14,8 +15,9 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ formData, onSubmit, o
         />
       </div>
       <div>
-        <label>Amount: </label>
+        <label htmlFor="amount">Amount: </label>
         <input 
+          id="amount"
           type="number" 
           value={formData.amount} 
           onChange={onInputChange} 
@@ -23,8 +25,9 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ formData, onSubmit, o
         />
       </div>
       <div>
-        <label>Type: </label>
+        <label htmlFor="type">Type: </label>
         <select 
+          id="type"
           value={formData.type} 
           onChange={onInputChange}
           name="type"

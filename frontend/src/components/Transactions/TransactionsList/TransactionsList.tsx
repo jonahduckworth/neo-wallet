@@ -31,7 +31,12 @@ const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
   if (error) return <p>Error: {error.message}</p>;
   
   const handleDelete = async (transactionId: string) => {
-    await deleteTransaction({ variables: { id: transactionId } });
+    try {
+      await deleteTransaction({ variables: { id: transactionId } });
+    } catch (error) {
+      console.error("Error deleting the transaction:", error);
+      // Optionally, show an error to the user.
+    }
   };  
 
   return (
