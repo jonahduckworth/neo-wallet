@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGNUP_MUTATION, LOGIN_MUTATION } from '../graphql/auth';
+import LoginForm from '../LoginForm';
+import SignUpForm from '../SignUpForm';
 
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,6 +10,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
 
   const [signup] = useMutation(SIGNUP_MUTATION);
   const [login] = useMutation(LOGIN_MUTATION);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -25,38 +32,22 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
     }
   };
 
+  const propsForLoginForm = {
+    formData: formData,
+    onInputChange: handleInputChange,
+    onSubmit: handleSubmit
+  };
+
+  const propsForSignUpForm = {
+    formData: formData,
+    onInputChange: handleInputChange,
+    onSubmit: handleSubmit
+  };
+
   return (
     <div>
       <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
-      <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <div>
-            <label>Username: </label>
-            <input 
-              type="text" 
-              value={formData.username} 
-              onChange={e => setFormData({ ...formData, username: e.target.value })} 
-            />
-          </div>
-        )}
-        <div>
-          <label>Email: </label>
-          <input 
-            type="email" 
-            value={formData.email} 
-            onChange={e => setFormData({ ...formData, email: e.target.value })} 
-          />
-        </div>
-        <div>
-          <label>Password: </label>
-          <input 
-            type="password" 
-            value={formData.password} 
-            onChange={e => setFormData({ ...formData, password: e.target.value })} 
-          />
-        </div>
-        <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
-      </form>
+      {isLogin ? <LoginForm {...propsForLoginForm} /> : <SignUpForm {...propsForSignUpForm} />}
       <button onClick={() => setIsLogin(!isLogin)}>
         Switch to {isLogin ? 'Sign Up' : 'Login'}
       </button>
