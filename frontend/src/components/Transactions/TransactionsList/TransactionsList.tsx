@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, DELETE_TRANSACTION } from '../graphql/transactions';
+import { TransactionProps, Transaction } from '../Types';
 
 const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {

@@ -21,3 +21,5 @@ interface TransactionFormData {
   amount: string;
   type: 'income' | 'expense';
 }
+
+export type { Transaction, TransactionProps, TransactionFormProps, TransactionFormData };

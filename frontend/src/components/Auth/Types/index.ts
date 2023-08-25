@@ -19,4 +19,5 @@ interface AuthFormData {
   email: string;
   password: string;
 }
-  
+
+export type { AuthPageProps, LoginFormProps, SignUpFormProps, AuthFormData };

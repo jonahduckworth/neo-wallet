@@ -1,4 +1,5 @@
 import React from 'react';
+import { TransactionFormProps } from '../Types';
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ formData, onSubmit, onInputChange }) => {
   return (

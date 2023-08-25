@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginFormProps } from '../Types';
 
 const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit }) => {
 
@@ -8,6 +9,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit
         <label>Email: </label>
         <input 
           type="email" 
+          name="email"
           value={formData.email} 
           onChange={onInputChange} 
         />
@@ -16,10 +18,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit
         <label>Password: </label>
           <input 
             type="password" 
+            name="password"
             value={formData.password} 
             onChange={onInputChange} 
           />
         </div>
+        <button type="submit">Login</button>
     </form>
   );
 }

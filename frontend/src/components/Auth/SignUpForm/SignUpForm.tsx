@@ -1,4 +1,5 @@
 import React from 'react';
+import { SignUpFormProps } from '../Types';
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubmit }) => {
   return (
@@ -7,6 +8,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
         <label>Username: </label>
         <input 
           type="text" 
+          name="username"
           value={formData.username} 
           onChange={onInputChange} 
         />
@@ -15,6 +17,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
         <label>Email: </label>
         <input 
           type="email" 
+          name="email"
           value={formData.email} 
           onChange={onInputChange} 
         />
@@ -23,10 +26,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
         <label>Password: </label>
           <input 
             type="password" 
+            name="password"
             value={formData.password} 
             onChange={onInputChange} 
           />
         </div>
+        <button type="submit">Sign Up</button>
     </form>
   );
 }

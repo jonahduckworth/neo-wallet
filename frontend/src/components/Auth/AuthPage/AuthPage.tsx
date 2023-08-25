@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { SIGNUP_MUTATION, LOGIN_MUTATION } from '../graphql/auth';
 import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
+import { AuthPageProps } from '../Types';
 
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);

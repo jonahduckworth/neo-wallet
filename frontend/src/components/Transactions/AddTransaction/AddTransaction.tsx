@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../graphql/transactions';
 import TransactionForm from '../TransactionForm';
+import { TransactionProps, TransactionFormData } from '../Types';
 
 const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
   const [formData, setFormData] = useState<TransactionFormData>({ description: '', amount: '', type: 'expense' });
