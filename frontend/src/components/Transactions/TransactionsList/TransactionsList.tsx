@@ -3,6 +3,18 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, DELETE_TRANSACTION } from '../graphql/transactions';
 import { TransactionProps, Transaction } from '../Types';
 
+import { 
+  Typography, 
+  Box, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableRow, 
+  IconButton 
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
     variables: { userId }
@@ -40,17 +52,36 @@ const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
   };  
 
   return (
-    <div>
-      <h3>Transactions</h3>
-      <ul>
-        {data.transactions.map((transaction: Transaction) => (
-          <li key={transaction.id}>
-            {transaction.description} - ${transaction.amount} - {transaction.type}
-            <button onClick={() => handleDelete(transaction.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Box p={4}>
+      <Typography variant="h5" gutterBottom>
+        Transactions
+      </Typography>
+      
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Description</TableCell>
+            <TableCell align="right">Amount</TableCell>
+            <TableCell align="right">Type</TableCell>
+            <TableCell align="right">Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.transactions.map((transaction: Transaction) => (
+            <TableRow key={transaction.id}>
+              <TableCell>{transaction.description}</TableCell>
+              <TableCell align="right">${transaction.amount}</TableCell>
+              <TableCell align="right">{transaction.type}</TableCell>
+              <TableCell align="right">
+                <IconButton onClick={() => handleDelete(transaction.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
   );
 }
 

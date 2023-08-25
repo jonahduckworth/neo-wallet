@@ -4,6 +4,8 @@ import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../graphql/transactions';
 import TransactionForm from '../TransactionForm';
 import { TransactionProps, TransactionFormData } from '../Types';
 
+import { Typography, Box, Button } from '@mui/material';
+
 const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
   const [formData, setFormData] = useState<TransactionFormData>({ description: '', amount: '', type: 'expense' });
   const [addTransaction] = useMutation(ADD_TRANSACTION, {
@@ -41,20 +43,22 @@ const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string, value: string | number } }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+};
 
   return (
-    <div>
-      <h4>Add Transaction</h4>
+    <Box p={4}>
+      <Typography variant="h5" gutterBottom>
+        Add Transaction
+      </Typography>
       <TransactionForm 
         formData={formData} 
         onSubmit={handleSubmit} 
         onInputChange={handleInputChange} 
       />
-    </div>
+    </Box>
   );
 }
 

@@ -24,10 +24,10 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [signup] = useMutation(SIGNUP_MUTATION);
   const [login] = useMutation(LOGIN_MUTATION);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { name: string, value: string | number } }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+};
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
