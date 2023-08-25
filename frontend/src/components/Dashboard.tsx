@@ -1,6 +1,6 @@
 import React from 'react';
-import AddTransaction from './AddTransaction';
-import TransactionsList from './TransactionsList';
+import AddTransaction from './Transactions/AddTransaction';
+import TransactionsList from './Transactions/TransactionsList';
 
 interface DashboardProps {
   userId: string;

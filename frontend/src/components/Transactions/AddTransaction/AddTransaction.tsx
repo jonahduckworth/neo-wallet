@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../graphql/transactions';
+import TransactionForm from '../TransactionForm';
 
 const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
-  const [formData, setFormData] = useState({ description: '', amount: '', type: 'expense' });
+  const [formData, setFormData] = useState<TransactionFormData>({ description: '', amount: '', type: 'expense' });
   const [addTransaction] = useMutation(ADD_TRANSACTION, {
     update(cache, { data: { addTransaction } }) {
       const existingTransactions: any = cache.readQuery({
@@ -38,38 +39,19 @@ const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <div>
       <h4>Add Transaction</h4>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Description: </label>
-          <input 
-            type="text" 
-            value={formData.description} 
-            onChange={e => setFormData({ ...formData, description: e.target.value })} 
-          />
-        </div>
-        <div>
-          <label>Amount: </label>
-          <input 
-            type="number" 
-            value={formData.amount} 
-            onChange={e => setFormData({ ...formData, amount: e.target.value })} 
-          />
-        </div>
-        <div>
-          <label>Type: </label>
-          <select 
-            value={formData.type} 
-            onChange={e => setFormData({ ...formData, type: e.target.value })}
-          >
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-        </div>
-        <button type="submit">Add</button>
-      </form>
+      <TransactionForm 
+        formData={formData} 
+        onSubmit={handleSubmit} 
+        onInputChange={handleInputChange} 
+      />
     </div>
   );
 }
