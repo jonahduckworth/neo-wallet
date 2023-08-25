@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, DELETE_TRANSACTION } from '../graphql/transactions';
 
-const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
+const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
     variables: { userId }
   });

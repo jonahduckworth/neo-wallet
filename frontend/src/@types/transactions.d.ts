@@ -6,7 +6,6 @@ interface Transaction {
     type: string;
   }
   
-interface TransactionsListProps {
+interface TransactionProps {
   userId: string;
 }
-  

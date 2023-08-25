@@ -1,36 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
+import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../graphql/transactions';
 
-const ADD_TRANSACTION = gql`
-  mutation AddTransaction($description: String!, $amount: Float!, $date: String!, $type: String!, $userId: ID!) {
-    addTransaction(description: $description, amount: $amount, date: $date, type: $type, userId: $userId) {
-      id
-      description
-      amount
-      date
-      type
-    }
-  }
-`;
-
-const GET_TRANSACTIONS = gql`
-  query GetTransactions($userId: ID!) {
-    transactions(userId: $userId) {
-      id
-      description
-      amount
-      date
-      type
-    }
-  }
-`;
-
-interface AddTransactionProps {
-  userId: string;
-}
-
-const AddTransaction: React.FC<AddTransactionProps> = ({ userId }) => {
+const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
   const [formData, setFormData] = useState({ description: '', amount: '', type: 'expense' });
   const [addTransaction] = useMutation(ADD_TRANSACTION, {
     update(cache, { data: { addTransaction } }) {

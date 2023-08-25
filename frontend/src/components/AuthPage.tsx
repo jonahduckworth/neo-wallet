@@ -1,28 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-
-const SIGNUP_MUTATION = gql`
-  mutation SignUp($username: String!, $email: String!, $password: String!) {
-    signUp(username: $username, email: $email, password: $password) {
-      token
-      userId
-    }
-  }
-`;
-
-const LOGIN_MUTATION = gql`
-  mutation LogIn($email: String!, $password: String!) {
-    logIn(email: $email, password: $password) {
-      token
-      userId
-    }
-  }
-`;
-
-interface AuthPageProps {
-  onLogin: (userId: string) => void;
-}
+import { SIGNUP_MUTATION, LOGIN_MUTATION } from '../graphql/auth';
 
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
