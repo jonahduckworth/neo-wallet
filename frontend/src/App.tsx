@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import AuthPage from './components/AuthPage';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes';
+import LogoutButton from './components/LogoutButton';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+  const [userId, setUserId] = useState<string | null>(null);
+
+  const handleLogin = (id: string) => {
+    setIsLoggedIn(true);
+    setUserId(id);
+    localStorage.setItem('isLoggedIn', 'true');
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserId(null);
+    localStorage.removeItem('isLoggedIn');
+  };
+
   return (
-    <div className="App">
-      <AuthPage />
-    </div>
+    <Router>
+      <div className="App">
+        <AppRoutes isLoggedIn={isLoggedIn} userId={userId} handleLogin={handleLogin} />
+        {isLoggedIn && <LogoutButton handleLogout={handleLogout} />}
+      </div>
+    </Router>
   );
 }
 
