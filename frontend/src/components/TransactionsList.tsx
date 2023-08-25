@@ -1,36 +1,6 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-
-const GET_TRANSACTIONS = gql`
-  query GetTransactions($userId: ID!) {
-    transactions(userId: $userId) {
-      id
-      description
-      amount
-      date
-      type
-    }
-  }
-`;
-
-const DELETE_TRANSACTION = gql`
-  mutation DeleteTransaction($id: ID!) {
-    deleteTransaction(id: $id)
-  }
-`;
-
-interface Transaction {
-  id: string;
-  description: string;
-  amount: number;
-  date: string;
-  type: string;
-}
-
-interface TransactionsListProps {
-  userId: string;
-}
+import { GET_TRANSACTIONS, DELETE_TRANSACTION } from '../graphql/transactions';
 
 const TransactionsList: React.FC<TransactionsListProps> = ({ userId }) => {
   const { loading, error, data } = useQuery(GET_TRANSACTIONS, {
