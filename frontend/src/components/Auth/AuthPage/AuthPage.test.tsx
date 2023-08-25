@@ -45,14 +45,14 @@ describe('<AuthPage />', () => {
         <AuthPage onLogin={() => {}} />
       </MockedProvider>
     );
-
-    expect(getByRole('heading', { level: 2, name: /Login/i })).toBeInTheDocument();
-
+  
+    expect(getByRole('heading', { level: 4, name: /Login/i })).toBeInTheDocument();
+  
     const toggleButton = getByText(/Switch to Sign Up/);
     fireEvent.click(toggleButton);
-
-    expect(getByRole('heading', { level: 2, name: /Sign Up/i })).toBeInTheDocument();
-});
+  
+    expect(getByRole('heading', { level: 4, name: /Sign Up/i })).toBeInTheDocument();
+  });  
 
   // Additional tests for form submissions and other behaviors can be added here.
   // For instance, you can simulate form submissions and check if the appropriate GraphQL mutations are called.
