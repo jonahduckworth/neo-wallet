@@ -5,9 +5,19 @@ import LoginForm from '../LoginForm';
 import SignUpForm from '../SignUpForm';
 import { AuthPageProps } from '../Types';
 
-import { Button, Container, Typography, Box } from '@mui/material';
+import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Divider,
+  useTheme,
+} from '@mui/material';
 
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
+  const theme = useTheme();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
@@ -32,6 +42,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
       // Handle Signup
       const { data } = await signup({ variables: formData });
       console.log("Signed up:", data);
+      if (data?.signUp?.userId) { // Check if sign up was successful by checking for a userId in the response
+        setIsLogin(true); // Redirect to login
+      }
     }
   };
 
@@ -49,16 +62,35 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
 
   return (
     <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" align="center" gutterBottom>
-          {isLogin ? 'Login' : 'Sign Up'}
-        </Typography>
-        {isLogin ? <LoginForm {...propsForLoginForm} /> : <SignUpForm {...propsForSignUpForm} />}
-        <Box mt={2}>
-          <Button fullWidth variant="outlined" onClick={() => setIsLogin(!isLogin)}>
-            Switch to {isLogin ? 'Sign Up' : 'Login'}
-          </Button>
-        </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <Card style={{ width: '55%' }}>
+          <CardContent>
+            <Typography variant="h4" align="center" gutterBottom>
+              {isLogin ? 'Login' : 'Sign Up'}
+            </Typography>
+            {isLogin ? <LoginForm {...propsForLoginForm} /> : <SignUpForm {...propsForSignUpForm} />}
+            
+            <Box mt={3}>
+              <Divider />
+            </Box>
+
+            <Box mt={2} display="flex" justifyContent="center">
+              <Button 
+                color="primary" 
+                size="small"
+                onClick={() => setIsLogin(!isLogin)}
+              >
+                Switch to {isLogin ? 'Sign Up' : 'Login'}
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
     </Container>
   );

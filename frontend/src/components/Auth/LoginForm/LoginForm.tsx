@@ -15,6 +15,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit
           name="email"
           value={formData.email}
           onChange={onInputChange}
+          size="small"
         />
       </Box>
       <Box my={2}>
@@ -26,6 +27,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit
           name="password"
           value={formData.password}
           onChange={onInputChange}
+          size="small"
         />
       </Box>
       <Button fullWidth variant="contained" color="primary" type="submit">

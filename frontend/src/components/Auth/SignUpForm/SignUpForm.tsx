@@ -15,6 +15,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
           name="username"
           value={formData.username}
           onChange={onInputChange}
+          size="small"
         />
       </Box>
       <Box my={2}>
@@ -26,6 +27,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
           name="email"
           value={formData.email}
           onChange={onInputChange}
+          size="small"
         />
       </Box>
       <Box my={2}>
@@ -37,6 +39,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onInputChange, onSubm
           name="password"
           value={formData.password}
           onChange={onInputChange}
+          size="small"
         />
       </Box>
       <Button fullWidth variant="contained" color="primary" type="submit">
