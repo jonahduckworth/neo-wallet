@@ -56,31 +56,32 @@ const TransactionsList: React.FC<TransactionProps> = ({ userId }) => {
       <Typography variant="h5" gutterBottom>
         Transactions
       </Typography>
-      
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Description</TableCell>
-            <TableCell align="right">Amount</TableCell>
-            <TableCell align="right">Type</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.transactions.map((transaction: Transaction) => (
-            <TableRow key={transaction.id}>
-              <TableCell>{transaction.description}</TableCell>
-              <TableCell align="right">${transaction.amount}</TableCell>
-              <TableCell align="right">{transaction.type}</TableCell>
-              <TableCell align="right">
-                <IconButton onClick={() => handleDelete(transaction.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
+      <Box style={{ maxHeight: '500px', overflowY: 'auto' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Description</TableCell>
+              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Type</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {data.transactions.map((transaction: Transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell>{transaction.description}</TableCell>
+                <TableCell align="right">${transaction.amount}</TableCell>
+                <TableCell align="right">{transaction.type}</TableCell>
+                <TableCell align="right">
+                  <IconButton onClick={() => handleDelete(transaction.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
     </Box>
   );
 }
