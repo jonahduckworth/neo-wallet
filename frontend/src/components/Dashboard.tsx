@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AddTransaction from './Transactions/AddTransaction';
 import TransactionsList from './Transactions/TransactionsList';
 
-import { Card, CardContent, Typography, Box, Modal, useTheme } from '@mui/material';
+import { Card, CardContent, Typography, Box, Modal } from '@mui/material';
 
 interface DashboardProps {
   userId: string;

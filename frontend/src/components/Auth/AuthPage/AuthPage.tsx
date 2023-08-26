@@ -13,11 +13,9 @@ import {
   Card,
   CardContent,
   Divider,
-  useTheme,
 } from '@mui/material';
 
 const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
-  const theme = useTheme();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
 
