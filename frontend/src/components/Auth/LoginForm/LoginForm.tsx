@@ -1,29 +1,38 @@
 import React from 'react';
 import { LoginFormProps } from '../Types';
 
-const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit }) => {
+import { Button, TextField, Box } from '@mui/material';
 
+const LoginForm: React.FC<LoginFormProps> = ({ formData, onInputChange, onSubmit }) => {
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <label>Email: </label>
-        <input 
-          type="email" 
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Email"
+          variant="outlined"
+          type="email"
           name="email"
-          value={formData.email} 
-          onChange={onInputChange} 
+          value={formData.email}
+          onChange={onInputChange}
+          size="small"
         />
-      </div>
-      <div>
-        <label>Password: </label>
-          <input 
-            type="password" 
-            name="password"
-            value={formData.password} 
-            onChange={onInputChange} 
-          />
-        </div>
-        <button type="submit">Login</button>
+      </Box>
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Password"
+          variant="outlined"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={onInputChange}
+          size="small"
+        />
+      </Box>
+      <Button fullWidth variant="contained" color="primary" type="submit">
+        Login
+      </Button>
     </form>
   );
 }
