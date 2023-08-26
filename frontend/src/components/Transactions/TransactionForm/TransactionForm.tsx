@@ -1,42 +1,62 @@
 import React from 'react';
 import { TransactionFormProps } from '../Types';
+import { 
+  Box, 
+  TextField, 
+  FormControl, 
+  InputLabel, 
+  Select, 
+  MenuItem, 
+  Button 
+} from '@mui/material';
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ formData, onSubmit, onInputChange }) => {
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <label htmlFor="description">Description: </label>
-        <input 
-          id="description"
-          type="text" 
-          value={formData.description} 
-          onChange={onInputChange} 
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Description"
+          variant="outlined"
+          type="text"
           name="description"
-        />
-      </div>
-      <div>
-        <label htmlFor="amount">Amount: </label>
-        <input 
-          id="amount"
-          type="number" 
-          value={formData.amount} 
-          onChange={onInputChange} 
-          name="amount"
-        />
-      </div>
-      <div>
-        <label htmlFor="type">Type: </label>
-        <select 
-          id="type"
-          value={formData.type} 
+          value={formData.description}
           onChange={onInputChange}
-          name="type"
-        >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-      </div>
-      <button type="submit">Add</button>
+          size="small"
+        />
+      </Box>
+      <Box my={2}>
+        <TextField
+          fullWidth
+          label="Amount"
+          variant="outlined"
+          type="number"
+          name="amount"
+          value={formData.amount}
+          onChange={onInputChange}
+          size="small"
+        />
+      </Box>
+      <Box my={2}>
+        <FormControl fullWidth variant="outlined" size="small">
+          <InputLabel id="type-label">Type</InputLabel>
+          <Select
+            labelId="type-label"
+            label="Type"
+            value={formData.type}
+            onChange={onInputChange as any}
+            name="type"
+          >
+            <MenuItem value="income">Income</MenuItem>
+            <MenuItem value="expense">Expense</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box mt={3}>
+        <Button fullWidth variant="contained" color="primary" type="submit">
+          Add
+        </Button>
+      </Box>
     </form>
   );
 }

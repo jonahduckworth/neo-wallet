@@ -13,7 +13,7 @@ interface TransactionProps {
 interface TransactionFormProps {
   formData: TransactionFormData;
   onSubmit: (event: React.FormEvent) => void;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
 
 interface TransactionFormData {
