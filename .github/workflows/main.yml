@@ -16,9 +16,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Navigate to Project Directory
-        run: cd frontend
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -34,9 +31,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: frontend
 
       - name: Run Tests
-        run: npm test a
+        run: npm test
+        working-directory: frontend
 
   deploy:
     runs-on: ubuntu-latest
