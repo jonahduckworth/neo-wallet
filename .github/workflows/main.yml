@@ -74,7 +74,9 @@ jobs:
         uses: jakejarvis/s3-sync-action@master
         with:
             args: --acl public-read --follow-symlinks --delete
-            sync_dir: frontend/build/
-            bucket_name: neo-wallet-bucket
-            aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+            AWS_S3_BUCKET: neo-wallet-bucket
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            SOURCE_DIR: frontend/build/
+          
