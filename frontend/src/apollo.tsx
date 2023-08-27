@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8080'  
+  uri: 'https://Neo-wallet-env.eba-edn2qvng.us-east-2.elasticbeanstalk.com'
 });
 
 const cache = new InMemoryCache({
