@@ -1,7 +1,7 @@
 interface AuthPageProps {
   onLogin: (userId: string) => void;
 }
-  
+
 interface LoginFormProps {
   formData: AuthFormData;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
