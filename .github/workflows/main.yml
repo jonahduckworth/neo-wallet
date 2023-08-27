@@ -56,7 +56,7 @@ jobs:
             environment_name: Neo-wallet-env
             version_label: ${{ github.run_id }}
             region: us-east-2
-            zip_file: backend.zip
+            deployment_package: backend.zip
 
       - name: Build frontend
         run: |
