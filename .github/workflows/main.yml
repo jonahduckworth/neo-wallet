@@ -45,7 +45,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Zip Backend Code
-        run: zip -r backend.zip backend
+        run: cd backend
+             zip -r ../backend.zip *
     
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v14
