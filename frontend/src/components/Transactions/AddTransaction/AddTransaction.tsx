@@ -3,8 +3,9 @@ import { useMutation } from '@apollo/client';
 import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../graphql/transactions';
 import TransactionForm from '../TransactionForm';
 import { TransactionProps, TransactionFormData } from '../Types';
+import { toast } from 'react-toastify';
 
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
   const [formData, setFormData] = useState<TransactionFormData>({ description: '', amount: '', type: 'expense' });
@@ -39,7 +40,10 @@ const AddTransaction: React.FC<TransactionProps> = ({ userId }) => {
     });
 
     if (data) {
+      toast.success('Transaction added successfully!');
       setFormData({ description: '', amount: '', type: 'expense' });
+    } else {
+      toast.error('Something went wrong!');
     }
   };
 
