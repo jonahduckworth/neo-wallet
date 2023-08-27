@@ -54,7 +54,7 @@ jobs:
             aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             application_name: neo-wallet
             environment_name: Neo-wallet-env
-            version_label: ${{ github.run_id }}
+            version_label: ${{ github.run_id }}-${{ github.sha }}
             region: us-east-2
             deployment_package: backend.zip
 
